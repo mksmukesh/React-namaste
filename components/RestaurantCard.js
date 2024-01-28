@@ -5,7 +5,7 @@ const RestaurantCard = (props) => {
 
   return (
     <div className="res-card">
-      {console.log("hello")}
+     
       <div className="res-name">
         <img
           className="card-logo"

@@ -1,12 +1,17 @@
 import RestaurantCard from "./RestaurantCard";
 
 import { useEffect, useState } from "react";
+import Shimmer from "./Shimmer";
 
 const Body = () => {
   const [ListOfRestaurants, setListOfRestaurants] = useState([]);
+  const [filteredRestro, setFilteredRestro] = useState([]);
+
+  const [searchRestro, setSearchRestro] = useState("");
 
   useEffect(() => {
     fetchData();
+    console.log("useEffect called")
   }, []);
 
   const fetchData = () => {
@@ -23,20 +28,43 @@ const Body = () => {
         setListOfRestaurants(
           json.data.cards[4].card.card.gridElements.infoWithStyle.restaurants
         );
+        setFilteredRestro(
+          json.data.cards[4].card.card.gridElements.infoWithStyle.restaurants
+        );
+        // console.log(json.data.cards[4].card.card.gridElements.infoWithStyle.restaurants)
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
   };
 
-  return (
+  return ListOfRestaurants.length === 0 ? (
+    <Shimmer />
+  ) : (
     <div className="body">
       <div className="filter">
         <div className="search">
-          <button className="search-btn" 
-          
-          >Search</button>
+          <input
+            type="text"
+            className="search-txt"
+            value={searchRestro}
+            onChange={(e) => setSearchRestro(e.target.value)}
+          ></input>
+          <button
+            className="search-btn"
+            onClick={() => {
+              const filteredRestro = ListOfRestaurants.filter((restro) =>
+                restro.info.name
+                  .toLowerCase()
+                  .includes(searchRestro.toLowerCase())
+              );
+              setFilteredRestro(filteredRestro);
+            }}
+          >
+            Search
+          </button>
         </div>
+
         <button
           className="filter-btn"
           onClick={() => {
@@ -52,15 +80,10 @@ const Body = () => {
       </div>
 
       <div className="res-container">
-        {console.log(ListOfRestaurants)}
-
-        {ListOfRestaurants.length > 0 ? (
-          ListOfRestaurants.map((restaurant, index) => (
-            <RestaurantCard resData={restaurant} key={index} />
-          ))
-        ) : (
-          <li>Name</li>
-        )}
+        {console.log("Body component called")}
+        {filteredRestro.map((restaurant, index) => (
+          <RestaurantCard resData={restaurant} key={index} />
+        ))}
       </div>
     </div>
   );

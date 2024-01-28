@@ -43,6 +43,8 @@
 }
 .search{
     padding: 10px;
+    cursor:pointer;
+    
 }
 .card-logo{
     width:100%;
@@ -52,5 +54,34 @@
 .filter{
     margin: 5px;
     /* padding: 10px; */
-    cursor:pointer
+    
+    display: flex;
+    /* flex-wrap: wrap; */
+
+}
+.filter-btn{
+    cursor:pointer;
+    flex-wrap: wrap;
+    size-adjust: 90%;
+}
+.search-btn{
+    cursor:pointer;
+}
+.shimmer-container{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 5px;
+
+}
+.shimmer-card{
+    padding: 5px;
+    margin: 5px;
+    width: 200px;
+    height: 350px;
+   
+    background-color: rgb(190, 185, 185);
+}
+.login-btn{
+    cursor: pointer;
+    padding: 0 15px;
 }
