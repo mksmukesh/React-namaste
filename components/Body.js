@@ -1,7 +1,7 @@
 import RestaurantCard from "./RestaurantCard";
-
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
+import { Link } from "react-router-dom";
 
 const Body = () => {
   const [ListOfRestaurants, setListOfRestaurants] = useState([]);
@@ -31,7 +31,7 @@ const Body = () => {
         setFilteredRestro(
           json.data.cards[4].card.card.gridElements.infoWithStyle.restaurants
         );
-        // console.log(json.data.cards[4].card.card.gridElements.infoWithStyle.restaurants)
+        
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
@@ -81,8 +81,8 @@ const Body = () => {
 
       <div className="res-container">
         {console.log("Body component called")}
-        {filteredRestro.map((restaurant, index) => (
-          <RestaurantCard resData={restaurant} key={index} />
+        {filteredRestro.map((restaurant) => (
+         <Link  key={restaurant.info.id} to={"/restaurant/"+restaurant.info.id}> <RestaurantCard resData={restaurant}  /></Link> 
         ))}
       </div>
     </div>
