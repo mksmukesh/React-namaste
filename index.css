@@ -33,6 +33,8 @@
     padding: 5px;
     margin: 5px;
     width: 200px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
     /* height: 350px; */
    
     background-color: rgb(190, 185, 185);
@@ -84,4 +86,18 @@
 .login-btn{
     cursor: pointer;
     padding: 0 15px;
+}
+
+.usercard-container{
+    padding: 5px ;
+    margin: 5px ;
+    width: 100%;
+    
+    background-color: rgb(190, 185, 185);
+}
+.about-container{
+    padding: 5px;
+    margin: 5px;
+    width: 100%;
+    background-color: aqua;
 }

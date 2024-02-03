@@ -2,16 +2,19 @@ import RestaurantCard from "./RestaurantCard";
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
+import useOnlineStatus from "./useOnlineStaus";
 
 const Body = () => {
   const [ListOfRestaurants, setListOfRestaurants] = useState([]);
   const [filteredRestro, setFilteredRestro] = useState([]);
 
   const [searchRestro, setSearchRestro] = useState("");
+  
+  
 
   useEffect(() => {
     fetchData();
-    console.log("useEffect called")
+    console.log("useEffect called");
   }, []);
 
   const fetchData = () => {
@@ -28,15 +31,21 @@ const Body = () => {
         setListOfRestaurants(
           json.data.cards[4].card.card.gridElements.infoWithStyle.restaurants
         );
+        // console.log(json.data.cards[4])
         setFilteredRestro(
           json.data.cards[4].card.card.gridElements.infoWithStyle.restaurants
         );
-        
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
   };
+
+  const onlineInfo = useOnlineStatus();
+
+  if(onlineInfo===false){
+    return <h1>Looks like you're offline. Please check your internet conection.</h1>
+  }
 
   return ListOfRestaurants.length === 0 ? (
     <Shimmer />
@@ -82,7 +91,13 @@ const Body = () => {
       <div className="res-container">
         {console.log("Body component called")}
         {filteredRestro.map((restaurant) => (
-         <Link  key={restaurant.info.id} to={"/restaurant/"+restaurant.info.id}> <RestaurantCard resData={restaurant}  /></Link> 
+          <Link
+            key={restaurant.info.id}
+            to={"/restaurant/" + restaurant.info.id}
+          >
+            {" "}
+            <RestaurantCard resData={restaurant} />
+          </Link>
         ))}
       </div>
     </div>
