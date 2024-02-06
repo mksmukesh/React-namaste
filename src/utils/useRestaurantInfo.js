@@ -18,11 +18,10 @@ const useRestaurantInfo = (resId) => {
       }
       const data = await response.json();
      setItemInfo(data?.data?.cards[0]?.card?.card?.info);
-    
-      setResInfo(
-        data?.data?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card
-          ?.card
-      );
+     const category=data?.data?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards?.filter((e)=>e.card?.card?.["@type"]==="type.googleapis.com/swiggy.presentation.food.v2.ItemCategory")
+     console.log(category)
+
+    setResInfo(category);
     
     } catch (error) {
       console.error("Error fetching data:", error);
